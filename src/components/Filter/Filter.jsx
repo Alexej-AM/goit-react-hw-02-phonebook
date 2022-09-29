@@ -1,5 +1,7 @@
  import React from 'react'
-  
+ import PropTypes from 'prop-types'
+
+
   export  function Filter({onChange, filter}) {
     return (
         <>
@@ -9,3 +11,7 @@
     )
   }
   
+  Filter.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    filter: PropTypes.string
+}

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export function ContactsList({items, deleteContacts}) {
 const elements = items.map(({name, number, id}) => {
@@ -11,3 +12,7 @@ return (
 
 }
 
+ContactsList.propTypes = {
+    items: PropTypes.array.isRequired,
+    deleteContacts: PropTypes.func.isRequired
+}
