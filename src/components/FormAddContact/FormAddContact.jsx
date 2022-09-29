@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { Input, LabelForm, Button, Form } from './FormAddContactStyled';
+
 
 
 export class FormAddContact extends Component {
-
-
   state = {
     name: '',
     number: '',
@@ -24,7 +24,7 @@ export class FormAddContact extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { name, number } = this.state;
-    this.props.onSubmit({name, number});
+    this.props.onSubmit({ name, number });
     this.setState({
       name: '',
       number: '',
@@ -35,10 +35,10 @@ export class FormAddContact extends Component {
     const { nameId, numberId, handleSubmit, handleChange } = this;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor={nameId}>Name</label>
-          <input
+          <LabelForm htmlFor={nameId}>Name</LabelForm>
+          <Input
             name="name"
             id={nameId}
             type="text"
@@ -46,14 +46,13 @@ export class FormAddContact extends Component {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             value={this.state.name}
             onChange={handleChange}
-            
             required
           />
         </div>
 
         <div>
-          <label htmlFor={numberId}>Number</label>
-          <input
+          <LabelForm htmlFor={numberId}>Number</LabelForm>
+          <Input
             name="number"
             id={numberId}
             type="tel"
@@ -61,18 +60,16 @@ export class FormAddContact extends Component {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             value={this.state.number}
             onChange={handleChange}
-            
             required
           />
         </div>
 
-        <button>Add contact</button>
-      </form>
+        <Button>Add contact</Button>
+      </Form>
     );
   }
 }
 
-
 FormAddContact.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-}
+};

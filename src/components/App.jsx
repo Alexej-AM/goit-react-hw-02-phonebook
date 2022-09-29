@@ -3,6 +3,9 @@ import { FormAddContact } from './FormAddContact/FormAddContact';
 import { ContactsList } from './ContactsList/ContactsList';
 import { nanoid } from 'nanoid';
 import { Filter } from './Filter/Filter';
+import {Conteiner} from './AppStyled';
+
+
 
 export class App extends Component {
   state = {
@@ -16,8 +19,10 @@ export class App extends Component {
   };
 
   addContact = data => {
-    if(this.isDublicate(data)){
-      return alert(`Контакт ${data.name} з номером ${data.number} вже є в списку контактів`)
+    if (this.isDublicate(data)) {
+      return alert(
+        `Контакт ${data.name} з номером ${data.number} вже є в списку контактів`
+      );
     }
     this.setState(prev => {
       const newContact = {
@@ -30,23 +35,25 @@ export class App extends Component {
     });
   };
 
-  deleteContacts = (id) => {
-    this.setState((prev) => {
-      const newListContacts = prev.contacts.filter((contact) => contact.id !== id);
+  deleteContacts = id => {
+    this.setState(prev => {
+      const newListContacts = prev.contacts.filter(
+        contact => contact.id !== id
+      );
 
       return {
-        contacts: newListContacts
-      }
-    })
+        contacts: newListContacts,
+      };
+    });
+  };
 
+  isDublicate({ name, number }) {
+    const { contacts } = this.state;
+    const result = contacts.find(
+      contact => contact.name === name && contact.number === number
+    );
+    return result;
   }
-
-isDublicate({name, number}) {
-  const {contacts} = this.state;
-  const result = contacts.find((contact) => contact.name === name && contact.number === number);
-  return result;
-}
-
 
   handleChange = e => {
     const { name, value } = e.target;
@@ -80,14 +87,14 @@ isDublicate({name, number}) {
     const { filter } = this.state;
     const contacts = this.getFilteredContacts();
     return (
-      <div>
+      <Conteiner>
         <h1>PhoneBook</h1>
         <FormAddContact onSubmit={addContact} />
         <h2>Contacts</h2>
         <Filter items={filter} onChange={handleChange} />
 
-        <ContactsList items={contacts} deleteContacts={deleteContacts}/>
-      </div>
+        <ContactsList items={contacts} deleteContacts={deleteContacts} />
+      </Conteiner>
     );
   }
 }
